@@ -1,6 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using AT_PrisonersDilemma;
-using AT_PrisonersDilemma.Bots;
 
 Console.WriteLine("Loading █");
 
@@ -10,10 +9,9 @@ Game game = new(random)
     CustomIteration = 10
 };
 
-game.AddBot(new AlwaysCooperate());
-game.AddBot(new AlwaysDefect());
-game.AddBot(new RandomBot(random));
-game.AddBot(new TitForTat());
+BotFactory botFactory = new(random);
+List<IBot> bots = botFactory.GetBots();
+bots.ForEach(bot => game.AddBot(bot));
 
 game.PlayGame();
 var resultData = game.GetResults();
