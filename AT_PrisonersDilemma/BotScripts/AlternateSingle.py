@@ -16,5 +16,5 @@ def NextIteration():
 def Reset():
     pass
 
-def SetResult(a, b):
+def SetResult(player, opponent):
     pass

@@ -20,10 +20,14 @@
   <ItemGroup>
     <PackageReference Include="IronPython" Version="3.4.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
+    <PackageReference Include="NiL.JS" Version="2.5.1677" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="BotScripts\AlternateSingle.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="BotScripts\AlternateTriple.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

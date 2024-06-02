@@ -39,18 +39,27 @@ namespace AT_PrisonersDilemma
             {
                 string fileName = Path.GetFileNameWithoutExtension(file);
                 string fileExtension = Path.GetExtension(file);
-                string content = File.ReadAllText(file);
+                string content;
                 if (fileExtension == ".cs")
                 {
-                    CSScriptLoader scriptLoader = new CSScriptLoader();
+                    CSScriptLoader scriptLoader = new();
+                    content = File.ReadAllText(file);
                     scriptLoader.LoadAssembly(content);
                     result.Add(new CSBotAdapter(fileName, scriptLoader));
                 }
                 else if (fileExtension == ".py")
                 {
-                    PYScriptLoader scriptLoader = new PYScriptLoader();
+                    PYScriptLoader scriptLoader = new();
+                    content = File.ReadAllText(file);
                     scriptLoader.LoadAssembly(content);
                     result.Add(new PYBotAdapter(fileName, scriptLoader));
+                }
+                else if (fileExtension == ".js")
+                {
+                    JSScriptLoader scriptLoader = new();
+                    content = File.ReadAllText(file);
+                    scriptLoader.LoadAssembly(content);
+                    result.Add(new JSBotAdapter(fileName, scriptLoader));
                 }
             }
             return result;
