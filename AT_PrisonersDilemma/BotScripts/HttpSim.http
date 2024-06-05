@@ -1,0 +1,20 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@baseURL=http://localhost:5232
+
+### NextIteration
+
+POST {{baseURL}}/NextIteration HTTP/1.1
+
+### Reset
+
+POST {{baseURL}}/Reset HTTP/1.1
+
+### SetResult
+
+POST {{baseURL}}/SetResult HTTP/1.1
+Content-Type: application/json
+
+{
+  "player": "{{player}}",
+  "opponent": "{{opponent}}"
+}

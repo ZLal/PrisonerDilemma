@@ -2,10 +2,10 @@
 
 namespace AT_PrisonersDilemma.BotAdapter
 {
-    public class PYBotAdapter : IBot
+    public class HttpBotAdapter : IBot
     {
-        private readonly PYScriptLoader ScriptLoader;
-        public PYBotAdapter(string name, PYScriptLoader scriptLoader)
+        private readonly HttpScriptLoader ScriptLoader;
+        public HttpBotAdapter(string name, HttpScriptLoader scriptLoader)
         {
             Name = name;
             ScriptLoader = scriptLoader;
@@ -13,9 +13,9 @@ namespace AT_PrisonersDilemma.BotAdapter
 
         public static IBot CreateBot(string name, string script)
         {
-            PYScriptLoader scriptLoader = new();
+            HttpScriptLoader scriptLoader = new();
             scriptLoader.LoadAssembly(script);
-            return new PYBotAdapter(name, scriptLoader);
+            return new HttpBotAdapter(name, scriptLoader);
         }
 
         public string Name { get; init; }
@@ -35,7 +35,11 @@ namespace AT_PrisonersDilemma.BotAdapter
 
         public void SetResult(BotAction player, BotAction opponent)
         {
-            object[] parameters = { player == BotAction.Cooperate ? 0 : 1, opponent == BotAction.Cooperate ? 0 : 1 };
+            Dictionary<string, string> parameters = new()
+            {
+                { "Player", player == BotAction.Cooperate ? "0" : "1" },
+                { "Opponent", opponent == BotAction.Cooperate ? "0" : "1" }
+            };
             _ = ScriptLoader.ExecuteMethod($"{nameof(SetResult)}", parameters);
         }
     }

@@ -21,6 +21,7 @@
     <PackageReference Include="IronPython" Version="3.4.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
     <PackageReference Include="NiL.JS" Version="2.5.1677" />
+    <PackageReference Include="wWw.HttpParser" Version="2021.11.14.825" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +29,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="BotScripts\AlternateTriple.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="BotScripts\HttpSim.http">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -1,7 +1,5 @@
-﻿using System.IO;
-using AT_PrisonersDilemma.BotAdapter;
+﻿using AT_PrisonersDilemma.BotAdapter;
 using AT_PrisonersDilemma.Bots;
-using AT_PrisonersDilemma.ScriptLoader;
 
 namespace AT_PrisonersDilemma
 {
@@ -35,31 +33,22 @@ namespace AT_PrisonersDilemma
         {
             List<IBot> result = new();
             List<string> files = Directory.EnumerateFiles("BotScripts").ToList();
+            Dictionary<string, Func<string, string, IBot>> adapterLookup = new()
+                {
+                    { ".cs", CSBotAdapter.CreateBot },
+                    { ".py", PYBotAdapter.CreateBot },
+                    { ".js", JSBotAdapter.CreateBot },
+                    { ".http", HttpBotAdapter.CreateBot },
+                };
             foreach (string file in files)
             {
                 string fileName = Path.GetFileNameWithoutExtension(file);
                 string fileExtension = Path.GetExtension(file);
                 string content;
-                if (fileExtension == ".cs")
+                if (adapterLookup.TryGetValue(fileExtension, out var createBot))
                 {
-                    CSScriptLoader scriptLoader = new();
                     content = File.ReadAllText(file);
-                    scriptLoader.LoadAssembly(content);
-                    result.Add(new CSBotAdapter(fileName, scriptLoader));
-                }
-                else if (fileExtension == ".py")
-                {
-                    PYScriptLoader scriptLoader = new();
-                    content = File.ReadAllText(file);
-                    scriptLoader.LoadAssembly(content);
-                    result.Add(new PYBotAdapter(fileName, scriptLoader));
-                }
-                else if (fileExtension == ".js")
-                {
-                    JSScriptLoader scriptLoader = new();
-                    content = File.ReadAllText(file);
-                    scriptLoader.LoadAssembly(content);
-                    result.Add(new JSBotAdapter(fileName, scriptLoader));
+                    result.Add(createBot(fileName, content));
                 }
             }
             return result;

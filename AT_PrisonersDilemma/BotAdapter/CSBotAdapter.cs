@@ -11,6 +11,13 @@ namespace AT_PrisonersDilemma.BotAdapter
             ScriptLoader = scriptLoader;
         }
 
+        public static IBot CreateBot(string name, string script)
+        {
+            CSScriptLoader scriptLoader = new();
+            scriptLoader.LoadAssembly(script);
+            return new CSBotAdapter(name, scriptLoader);
+        }
+
         public string Name { get; init; }
 
         public BotAction NextIteration()
