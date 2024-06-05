@@ -38,7 +38,7 @@ namespace AT_PrisonersDilemma
                     { ".cs", CSBotAdapter.CreateBot },
                     { ".py", PYBotAdapter.CreateBot },
                     { ".js", JSBotAdapter.CreateBot },
-                    { ".http", HttpBotAdapter.CreateBot },
+                    //{ ".http", HttpBotAdapter.CreateBot },
                 };
             foreach (string file in files)
             {
