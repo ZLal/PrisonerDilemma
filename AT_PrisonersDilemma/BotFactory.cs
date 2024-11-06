@@ -5,12 +5,6 @@ namespace AT_PrisonersDilemma
 {
     public class BotFactory
     {
-        private readonly Random random;
-        public BotFactory(Random random)
-        {
-            this.random = random;
-        }
-
         public List<IBot> GetBots()
         {
             List<IBot> result = GetDefaultBots();
@@ -24,7 +18,7 @@ namespace AT_PrisonersDilemma
             {
                 new AlwaysCooperate(),
                 new AlwaysDefect(),
-                new RandomBot(random),
+                new RandomBot(),
                 new TitForTat()
             };
         }

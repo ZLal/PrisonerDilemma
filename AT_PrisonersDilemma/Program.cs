@@ -3,13 +3,12 @@ using AT_PrisonersDilemma;
 
 Console.WriteLine("Loading █");
 
-Random random = new();
-Game game = new(random)
+Game game = new()
 {
-    CustomIteration = 10
+    StartIteration = 20
 };
 
-BotFactory botFactory = new(random);
+BotFactory botFactory = new();
 List<IBot> bots = botFactory.GetBots();
 bots.ForEach(bot => game.AddBot(bot));
 

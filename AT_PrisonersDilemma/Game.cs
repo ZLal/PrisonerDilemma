@@ -1,32 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AT_PrisonersDilemma
 {
     public class Game
     {
-        private readonly Random random;
-        public Game(Random random)
-        {
-            this.random = random;
-        }
-
-        private const int RandomMin = 10;
-        private const int RandomMax = 100;
-        public int Iteration { get; private set; } = 0;
+        public int RemainingIteration { get; private set; } = 0;
         /// <summary>
         /// If greater than 0 it will be used as iteration count
         /// </summary>
-        public int CustomIteration { get; set; } = 0;
+        public int StartIteration { get; set; } = 10;
 
         /// <summary>
         /// Allow bot to play with itself
         /// </summary>
-        public bool AllowSelfPlay { get; set; } = true;
+        public bool AllowBotToPlayItself { get; set; } = true;
 
         private Dictionary<string, IBot> Bots = new();
 
@@ -41,7 +27,7 @@ namespace AT_PrisonersDilemma
             List<StateItem> stateItems = new();
             for (i = 0; i < botList.Count; i++)
             {
-                j = AllowSelfPlay ? i : i + 1;
+                j = AllowBotToPlayItself ? i : i + 1;
                 for (; j < botList.Count; j++)
                 {
                     stateItems.Add(new StateItem()
@@ -57,7 +43,7 @@ namespace AT_PrisonersDilemma
 
         private void PlayStateGame(StateItem item)
         {
-            for (int i = 0; i < Iteration; i++)
+            for (int i = 0; i < RemainingIteration; i++)
             {
                 var kv = new KeyValuePair<BotAction, BotAction>(item.Player1.NextIteration(), item.Player2.NextIteration());
                 item.Results.Add(kv);
@@ -72,7 +58,7 @@ namespace AT_PrisonersDilemma
         {
             Reset();
             GameStates = CreateState();
-            Iteration = CustomIteration <= 0 ? random.Next(RandomMin, RandomMax) : CustomIteration;
+            RemainingIteration = StartIteration;
             foreach (var state in GameStates)
             {
                 PlayStateGame(state);
@@ -121,7 +107,7 @@ namespace AT_PrisonersDilemma
 
         public void Reset()
         {
-            Iteration = 0;
+            RemainingIteration = 0;
             GameStates.Clear();
         }
     }
