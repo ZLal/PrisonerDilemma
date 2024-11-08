@@ -8,6 +8,11 @@ Game game = new()
     StartIteration = 20
 };
 
+// Enable http in BotFactory
+//Console.WriteLine("Waiting for webserver startup");
+//Thread.Sleep(10_000);
+
+Console.WriteLine("Playing");
 BotFactory botFactory = new();
 List<IBot> bots = botFactory.GetBots();
 bots.ForEach(bot => game.AddBot(bot));

@@ -31,7 +31,7 @@
     <None Update="BotScripts\AlternateTriple.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="BotScripts\HttpSim.http">
+    <None Update="BotScripts\DefectOnStrikeSingle.http">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
